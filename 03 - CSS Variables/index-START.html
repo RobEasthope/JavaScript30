@@ -21,6 +21,23 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    /*CSS variables*/
+    :root{
+      --base: red;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      /*border: var(--sapcing) solid var(--base);*/
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -48,6 +65,20 @@
   </style>
 
   <script>
+    // Select input controls
+    const inputs = document.querySelectorAll('.controls input')
+
+    function handleUpdate(){
+      // Set suffix if the element has a data-sizing property set on it
+      const suffix = this.dataset.sizing || '';
+
+      // Update global value from this element values and add suffix (as the recieved value won't have a suffix umlike the pre-set CSS variable)
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+    }
+
+    // Set event listeners
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
   </script>
 
 </body>
